@@ -1,0 +1,73 @@
+---
+title: "Statistiek I - Lab session 1"
+author: "Robert van Timmeren (s4535553)"
+date: "Generated on: `r date()`"
+output: 
+  html_document:
+    toc: true
+    code_folding: show
+    toc_float: 
+        collapsed: false
+        smooth_scroll: true
+    number_sections: true
+---
+
+# Exercise 1
+
+
+```{r, fig.width=5, fig.height=5}
+# R code for this exercise goes between the ```'s 
+# Lines which start with a '#' are comments and not executed.
+# Remove the '#' at the start of the next line and press the Knit HTML button
+R.version.string
+
+# Reading the data file 'data.csv' and then showing its data structure.
+dat <- read.csv('data.csv',sep=';',dec='.')
+str(dat)
+```
+
+The `read.csv` command reads the provided .csv file given in its parameter into R, which can then be stored in a variable. Additional parameters are possible/required, for instance, to define seperation of values and what decimal seperation is used.
+
+
+# Exercise 2
+
+```{r, fig.width=5, fig.height=5}
+# Changes the participant column type from int to factor with 50 levels and then checks this.
+dat$participant <- as.factor(dat$participant)
+str(dat)
+```
+
+
+# Exercise 3
+
+```{r, fig.width=5, fig.height=5}
+#Calculates the mean of the column english_grade.
+mean(dat$english_grade)
+
+#Calculates the mean of english_grade for only men.
+mean(dat[dat$gender== "M", ] $english_grade)
+
+#Creates a cross table of gender and study.
+table(dat$gender, dat$study)
+```
+
+I definitely think there is a relation between gender and study. It seems that IS is a study that is mainly male dominated, whereas Ling is mainly female dominated. The data for CIS and others studies doesn't seem to be sufficient enough to really formulate any conclusions.
+
+
+# Exercise 4
+
+```{r, fig.width=5, fig.height=5}
+#Creates and shows a frequency table that shows the distribution of male and female and stores it in variable called gendertable.
+gendertable <- table(dat$gender)
+gendertable
+
+#Creates and shows a frequency table that shows the distribution of whether someone followed a bilingual education.
+bltable <- table(dat$bl_edu)
+bltable
+
+#Creates a barplot that shows the distribution of the genders of the respondents.
+barplot(gendertable, col = c("pink", "lightblue"), ylim = c(0, 40), main="Distribution female and male respondents", xlab="Gender", ylab="Frequency")
+
+#Creates a barplot that shows the distribution of whether a person followed a bilingual education.
+barplot(bltable, col = c("firebrick1", "lightgreen"), ylim = c(0, 50), main="Distribution followed bilingual education", xlab="Answer", ylab="Frequency")
+
